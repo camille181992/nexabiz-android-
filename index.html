@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BENCIA MULTI SERVICES</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f1f4f9;
+}
+header {
+    background: #123b70;
+    color: white;
+    padding: 22px;
+    text-align: center;
+}
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    background: #ffffff;
+}
+nav button {
+    flex: 1;
+    padding: 15px 5px;
+    border: none;
+    background: #ffffff;
+    color: #123b70;
+    font-weight: bold;
+}
+main {
+    padding: 15px;
+}
+.card {
+    background: white;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px #ddd;
+}
+input {
+    width: 95%;
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.action {
+    background: #123b70;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+h2 {
+    color: #123b70;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>BENCIA MULTI SERVICES</h1>
+<p>Sistèm Jesyon Biznis</p>
+</header>
+
+<nav>
+<button onclick="show('home')">Akèy</button>
+<button onclick="show('products')">Pwodwi</button>
+<button onclick="show('sales')">Lavant</button>
+</nav>
+
+<main>
+
+<section id="home">
+<div class="card">
+<h2>Byenveni nan BENCIA</h2>
+<p>Kontwòl ak jesyon biznis ou.</p>
+</div>
+
+<div class="card">
+<h3>Total pwodwi</h3>
+<h2 id="totalProducts">0</h2>
+</div>
+
+<div class="card">
+<h3>Total lavant</h3>
+<h2 id="totalSales">0 HTG</h2>
+</div>
+</section>
+
+<section id="products" hidden>
+<div class="card">
+<h2>Ajoute pwodwi</h2>
+<input id="productName" placeholder="Non pwodwi">
+<input id="productPrice" type="number" placeholder="Pri pwodwi">
+<input id="productQty" type="number" placeholder="Kantite">
+<button class="action" onclick="addProduct()">Anrejistre pwodwi</button>
+</div>
+
+<div class="card">
+<h2>Lis pwodwi</h2>
+<div id="productList"></div>
+</div>
+</section>
+
+<section id="sales" hidden>
+<div class="card">
+<h2>Anrejistre lavant</h2>
+<input id="saleName" placeholder="Non pwodwi vann">
+<input id="saleAmount" type="number" placeholder="Montan lavant HTG">
+<button class="action" onclick="addSale()">Anrejistre lavant</button>
+</div>
+
+<div class="card">
+<h2>Istorik lavant</h2>
+<div id="saleList"></div>
+</div>
+</section>
+
+</main>
+
+<script>
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+let sales = JSON.parse(localStorage.getItem("sales") || "[]");
+
+function show(page) {
+    document.querySelectorAll("main section").forEach(s => {
+        s.hidden = true;
+    });
+    document.getElementById(page).hidden = false;
+}
+
+function addProduct() {
+    let name = document.getElementById("productName").value;
+    let price = Number(document.getElementById("productPrice").value);
+    let qty = Number(document.getElementById("productQty").value);
+
+    if (!name || price <= 0 || qty <= 0) {
+        alert("Tanpri ranpli tout enfòmasyon yo.");
+        return;
+    }
+
+    products.push({name, price, qty});
+    localStorage.setItem("products", JSON.stringify(products));
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productQty").value = "";
+
+    update();
+}
+
+function addSale() {
+    let name = document.getElementById("saleName").value;
+    let amount = Number(document.getElementById("saleAmount").value);
+
+    if (!name || amount <= 0) {
+        alert("Tanpri ranpli enfòmasyon lavant lan.");
+        return;
+    }
+
+    sales.push({name, amount, date: new Date().toLocaleString()});
+    localStorage.setItem("sales", JSON.stringify(sales));
+
+    document.getElementById("saleName").value = "";
+    document.getElementById("saleAmount").value = "";
+
+    update();
+}
+
+function update() {
+    document.getElementById("totalProducts").textContent = products.length;
+
+    let total = sales.reduce((sum, s) => sum + s.amount, 0);
+
+    document.getElementById("totalSales").textContent =
+        total.toLocaleString() + " HTG";
+
+    document.getElementById("productList").innerHTML =
+        products.map(p => `<p>${p.name} — ${p.price} HTG — Kantite: ${p.qty}</p>`).join("");
+
+    document.getElementById("saleList").innerHTML =
+        sales.map(s => `<p>${s.name} — ${s.amount} HTG — ${s.date}</p>`).join("");
+}
+
+update();
+</script>
+
+</body>
+</html>
