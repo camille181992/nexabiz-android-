@@ -145,6 +145,8 @@ h2 {
   </div>
 </section>
 </main>
+
+<script>
 function changeLanguage() {
   const lang = document.getElementById("language").value;
   const message = document.getElementById("languageMessage");
@@ -157,7 +159,6 @@ function changeLanguage() {
 
   message.textContent = translations[lang];
 }
-<script>
 let products = JSON.parse(localStorage.getItem("products") || "[]");
 let sales = JSON.parse(localStorage.getItem("sales") || "[]");
 
