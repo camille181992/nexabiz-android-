@@ -128,8 +128,35 @@ h2 {
     <p>Byenveni nan espas administratè a.</p>
   </div>
 </section>
-</main>
+<section id="settings">
+  <div class="card">
+    <h2>⚙️ Paramètres</h2>
+    <label for="language">Choisir la langue</label>
 
+    <select id="language" onchange="changeLanguage()">
+      <option value="ht">Kreyòl</option>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+
+    <p id="languageMessage">
+      Byenveni nan BENCIA MULTI SERVICES
+    </p>
+  </div>
+</section>
+</main>
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  const message = document.getElementById("languageMessage");
+
+  const translations = {
+    ht: "Byenveni nan BENCIA MULTI SERVICES",
+    fr: "Bienvenue dans BENCIA MULTI SERVICES",
+    en: "Welcome to BENCIA MULTI SERVICES"
+  };
+
+  message.textContent = translations[lang];
+}
 <script>
 let products = JSON.parse(localStorage.getItem("products") || "[]");
 let sales = JSON.parse(localStorage.getItem("sales") || "[]");
