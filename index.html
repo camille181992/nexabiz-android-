@@ -190,12 +190,26 @@ function changeLanguage() {
 let products = JSON.parse(localStorage.getItem("products") || "[]");
 let sales = JSON.parse(localStorage.getItem("sales") || "[]");
 
+
 function show(page) {
     document.querySelectorAll("main section").forEach(s => {
         s.hidden = true;
     });
-    document.getElementById(page).hidden = false;
+
+    const section = document.getElementById(page);
+
+    if (!section) {
+        alert("Seksyon sa a pa disponib.");
+        return;
+    }
+
+    section.hidden = false;
+
+    if (page === "admin") {
+        updateAdmin();
+    }
 }
+
 
 function addProduct() {
     let name = document.getElementById("productName").value;
