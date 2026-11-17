@@ -246,11 +246,41 @@ function addSale() {
     document.getElementById("saleName").value = "";
     document.getElementById("saleAmount").value = "";
 
+    
     update();
+}
+
+// FONKSYON RAPÒ ADMINISTRATÈ
+function updateAdmin() {
+    document.getElementById("adminProducts").textContent =
+        products.length;
+
+    let total = sales.reduce((sum, s) => sum + Number(s.amount), 0);
+
+    document.getElementById("adminSales").textContent =
+        total.toLocaleString() + " HTG";
+
+    document.getElementById("adminDate").textContent =
+        new Date().toLocaleDateString();
 }
 
 function update() {
     document.getElementById("totalProducts").textContent = products.length;
+
+    let total = sales.reduce((sum, s) => sum + s.amount, 0);
+
+    document.getElementById("totalSales").textContent =
+        total.toLocaleString() + " HTG";
+
+    document.getElementById("productList").innerHTML =
+        products.map(p => `<p>${p.name} — ${p.price} HTG — Kantite: ${p.qty}</p>`).join("");
+
+    document.getElementById("saleList").innerHTML =
+        sales.map(s => `<p>${s.name} — ${s.amount} HTG — ${s.date}</p>`).join("");
+
+    updateAdmin();
+}
+
 
     let total = sales.reduce((sum, s) => sum + s.amount, 0);
 
