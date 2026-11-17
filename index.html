@@ -121,13 +121,41 @@ h2 {
 <h2>Istorik lavant</h2>
 <div id="saleList"></div>
 </div>
-</section>
+
 <section id="admin" hidden>
   <div class="card">
-    <h2>Kontwòl ak jesyon</h2>
-    <p>Byenveni nan espas administratè a.</p>
+    <h2>Espas Administratè</h2>
+    <p>Byenveni nan BENCIA MULTI SERVICES.</p>
+    <p>Kontwòl ak jesyon tout aktivite biznis la.</p>
+  </div>
+
+  <div class="card">
+    <h3>Rapò ak rezime</h3>
+    <p>Total pwodwi: <strong id="adminProducts">0</strong></p>
+    <p>Total lavant: <strong id="adminSales">0 HTG</strong></p>
+    <p>Dat jodi a: <strong id="adminDate"></strong></p>
+    <button class="action" onclick="updateAdmin()">Mete rapò a ajou</button>
+  </div>
+
+  <div class="card">
+    <h3>Jesyon biznis</h3>
+    <button class="action" onclick="show('products')">Jesyon pwodwi ak stok</button>
+    <br><br>
+    <button class="action" onclick="show('sales')">Jesyon lavant</button>
+  </div>
+
+  <div class="card">
+    <h3>Jesyon anplwaye</h3>
+    <p>Espas pou kont anplwaye, responsablite ak pèmisyon.</p>
+    <p>Fonksyon sa a ap vini nan pwochen etap la.</p>
+  </div>
+
+  <div class="card">
+    <h3>Sèvis MonCash ak NatCash</h3>
+    <p>Jesyon tranzaksyon ak rapò sèvis yo ap entegre isit la.</p>
   </div>
 </section>
+
 <section id="settings">
   <div class="card">
     <h2>⚙️ Paramètres</h2>
@@ -220,8 +248,20 @@ function update() {
 
     document.getElementById("saleList").innerHTML =
         sales.map(s => `<p>${s.name} — ${s.amount} HTG — ${s.date}</p>`).join("");
-}
 
+updateAdmin();}
+function updateAdmin() {
+   updateAdmin(); document.getElementById("adminProducts").textContent =
+        products.length;
+
+    let total = sales.reduce((sum, s) => sum + Number(s.amount), 0);
+
+    document.getElementById("adminSales").textContent =
+        total.toLocaleString() + " HTG";
+
+    document.getElementById("adminDate").textContent =
+        new Date().toLocaleDateString();
+}
 update();
 </script>
 
