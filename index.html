@@ -1,313 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ht">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BENCIA MULTI SERVICES</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12345a">
+<title>NexiaBiz</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f1f4f9;
-}
-header {
-    background: #123b70;
-    color: white;
-    padding: 22px;
-    text-align: center;
-}
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    background: #ffffff;
-}
-nav button {
-    flex: 1;
-    padding: 15px 5px;
-    border: none;
-    background: #ffffff;
-    color: #123b70;
-    font-weight: bold;
-}
-main {
-    padding: 15px;
-}
-.card {
-    background: white;
-    padding: 18px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px #ddd;
-}
-input {
-    width: 95%;
-    padding: 12px;
-    margin: 7px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-.action {
-    background: #123b70;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-}
-h2 {
-    color: #123b70;
-}
+:root{--navy:#12345a;--blue:#1769aa;--bg:#f3f6fa;--line:#dce4ee;--ink:#172536;--muted:#617286;--white:#fff;--red:#b42318;--green:#137547}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:white;padding:16px;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0002}
+.head{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:800;letter-spacing:.3px}.sub{font-size:12px;opacity:.85}
+main{max-width:1100px;margin:18px auto;padding:0 14px 40px}
+nav{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--navy);padding:10px 13px;border-radius:10px;font-weight:650}
+nav button.active{background:var(--blue);color:white;border-color:var(--blue)}
+section{display:none}section.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 12px;box-shadow:0 1px 3px #10243a0a}
+h1,h2,h3{margin:0 0 12px}h2{font-size:21px}h3{font-size:16px}
+.stat{font-size:25px;font-weight:800;color:var(--navy);margin-top:6px}
+label{display:block;font-weight:650;font-size:13px;margin:10px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #c8d4e1;border-radius:9px;background:white;color:var(--ink);font:inherit}
+button{cursor:pointer} .primary,.danger,.soft{border:0;border-radius:9px;padding:10px 14px;font-weight:700;margin-top:10px}
+.primary{background:var(--blue);color:white}.danger{background:#fee4e2;color:var(--red)}.soft{background:#eaf1f8;color:var(--navy)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:540px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f6f8fb;color:#40536a}
+.tablewrap{overflow:auto}
+.muted{color:var(--muted);font-size:13px}.notice{background:#fff7df;border:1px solid #f0d58a;padding:12px;border-radius:10px;color:#654d13;margin-bottom:12px}
+.ok{color:var(--green);font-weight:700}.empty{color:var(--muted);padding:12px;text-align:center}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.small{font-size:12px}.right{float:right}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:20px}
+@media(max-width:560px){.brand{font-size:19px}header{padding:12px}.card{padding:13px}}
 </style>
 </head>
-
 <body>
-
-<header>
-<h1>BENCIA MULTI SERVICES</h1>
-<p>Sistèm Jesyon Biznis</p>
-</header>
-
-<nav>
-<button onclick="show('home')">Akèy</button>
-<button onclick="show('products')">Pwodwi</button>
-<button onclick="show('sales')">Lavant</button>
-    <button onclick="show('admin')">Contrôle et gestion</button>
+<header><div class="head"><div><div class="brand">NexiaBiz</div><div class="sub" id="businessHeader">Jesyon biznis ou, nan yon sèl espas</div></div><div style="min-width:130px"><label style="color:white;margin:0 0 4px">Lang / Language</label><select id="language" aria-label="Language"><option value="ht">Kreyòl</option><option value="fr">Français</option><option value="en">English</option></select></div></div></header>
+<main>
+<div class="notice"><strong>Enpòtan:</strong> Vèsyon sa a se yon baz fonksyonèl lokal pou tès sou aparèy sa a. Done yo rete nan navigatè a. Li poko gen sèvè, koneksyon plizyè aparèy, ni sekirite reyèl pou kont anplwaye.</div>
+<nav id="nav">
+<button class="active" data-page="home">Akèy</button><button data-page="products">Pwodwi / Stok</button><button data-page="sales">Kès / Lavant</button><button data-page="services">MonCash / NatCash</button><button data-page="staff">Anplwaye</button><button data-page="payroll">Salè</button><button data-page="reports">Rapò</button><button data-page="settings">Paramèt</button>
 </nav>
 
-<main>
-
-<section id="home">
-<div class="card">
-<h2>Byenveni nan BENCIA</h2>
-<p>Kontwòl ak jesyon biznis ou.</p>
-</div>
-
-<div class="card">
-<h3>Total pwodwi</h3>
-<h2 id="totalProducts">0</h2>
-</div>
-
-<div class="card">
-<h3>Total lavant</h3>
-<h2 id="totalSales">0 HTG</h2>
+<section id="home" class="active">
+<div class="card"><h2 id="welcome">Byenveni nan NexiaBiz</h2><p class="muted">Chwazi yon modil nan meni an pou jere aktivite biznis la.</p><strong id="businessNameHome">BENCIA MULTI SERVICES</strong></div>
+<div class="grid">
+<div class="card"><div class="muted">Total pwodwi</div><div class="stat" id="statProducts">0</div></div>
+<div class="card"><div class="muted">Total lavant</div><div class="stat" id="statSales">0 HTG</div></div>
+<div class="card"><div class="muted">Tranzaksyon sèvis</div><div class="stat" id="statServices">0</div></div>
+<div class="card"><div class="muted">Stok ba</div><div class="stat" id="statLow">0</div></div>
 </div>
 </section>
 
-<section id="products" hidden>
-<div class="card">
-<h2>Ajoute pwodwi</h2>
-<input id="productName" placeholder="Non pwodwi">
-<input id="productPrice" type="number" placeholder="Pri pwodwi">
-<input id="productQty" type="number" placeholder="Kantite">
-<button class="action" onclick="addProduct()">Anrejistre pwodwi</button>
-</div>
-
-<div class="card">
-<h2>Lis pwodwi</h2>
-<div id="productList"></div>
-</div>
+<section id="products">
+<div class="card"><h2>Jesyon pwodwi ak stok</h2><div class="row">
+<div><label>Non pwodwi</label><input id="pName" placeholder="Egzanp: Dlo"></div>
+<div><label>Pri vann (HTG)</label><input id="pPrice" type="number" min="0" step="0.01"></div>
+<div><label>Kantite nan stok</label><input id="pQty" type="number" min="0" step="1"></div>
+</div><button class="primary" id="addProduct">Ajoute pwodwi</button></div>
+<div class="card"><h3>Lis pwodwi</h3><div class="tablewrap"><table><thead><tr><th>Kòd</th><th>Pwodwi</th><th>Pri</th><th>Kantite</th><th>Aksyon</th></tr></thead><tbody id="productRows"></tbody></table></div></div>
 </section>
 
-<section id="sales" hidden>
-<div class="card">
-<h2>Anrejistre lavant</h2>
-<input id="saleName" placeholder="Non pwodwi vann">
-<input id="saleAmount" type="number" placeholder="Montan lavant HTG">
-<button class="action" onclick="addSale()">Anrejistre lavant</button>
-</div>
+<section id="sales">
+<div class="card"><h2>Kès ak lavant</h2><div class="row">
+<div><label>Pwodwi</label><select id="saleProduct"></select></div>
+<div><label>Kantite</label><input id="saleQty" type="number" min="1" value="1"></div>
+<div><label>Kliyan (opsyonèl)</label><input id="saleCustomer" placeholder="Non kliyan"></div>
+<div><label>Kantite lajan kliyan bay (HTG)</label><input id="salePaid" type="number" min="0" step="0.01"></div>
+<div><label>Kesye</label><input id="saleCashier" placeholder="Non kesye"></div>
+</div><button class="primary" id="addSale">Anrejistre lavant</button><p id="saleMessage" class="muted">Chwazi pwodwi a pou wè pri total la nan mesaj konfimasyon an.</p></div>
+<div class="card"><h3>Istorik lavant</h3><div class="tablewrap"><table><thead><tr><th>Dat</th><th>Pwodwi</th><th>Kantite</th><th>Total</th><th>Peye</th><th>Monnen</th><th>Kesye</th></tr></thead><tbody id="saleRows"></tbody></table></div></div>
+</section>
 
-<div class="card">
-<h2>Istorik lavant</h2>
-<div id="saleList"></div>
-</div>
+<section id="services">
+<div class="card"><h2>MonCash ak NatCash</h2><div class="row">
+<div><label>Sèvis</label><select id="svcProvider"><option>MonCash</option><option>NatCash</option></select></div>
+<div><label>Kalite tranzaksyon</label><select id="svcType"><option>Depo</option><option>Retrè</option><option>Transfè</option></select></div>
+<div><label>Montan tranzaksyon (HTG)</label><input id="svcAmount" type="number" min="0" step="0.01"></div>
+<div><label>Frè / Komisyon (HTG)</label><input id="svcFee" type="number" min="0" step="0.01" value="0"></div>
+<div><label>Referans oswa nimewo (pa mete PIN)</label><input id="svcRef" placeholder="Referans tranzaksyon"></div>
+<div><label>Anplwaye</label><input id="svcStaff" placeholder="Non ajan"></div>
+</div><button class="primary" id="addService">Anrejistre tranzaksyon</button><p class="muted">Pa antre PIN, modpas, oswa enfòmasyon sekrè kliyan nan aplikasyon sa a.</p></div>
+<div class="card"><h3>Istorik sèvis</h3><div class="tablewrap"><table><thead><tr><th>Dat</th><th>Rezo</th><th>Kalite</th><th>Montan</th><th>Frè</th><th>Ajan</th></tr></thead><tbody id="serviceRows"></tbody></table></div></div>
+</section>
 
-<section id="admin" hidden>
-  <div class="card">
-    <h2>Espas Administratè</h2>
-    <p>Byenveni nan BENCIA MULTI SERVICES.</p>
-    <p>Kontwòl ak jesyon tout aktivite biznis la.</p>
-  </div>
+<section id="staff">
+<div class="card"><h2>Jesyon anplwaye</h2><div class="notice">Lis sa a se yon rejis lokal, li pa kreye kont koneksyon oswa pèmisyon sekirize.</div><div class="row">
+<div><label>Non anplwaye</label><input id="staffName"></div>
+<div><label>Wòl</label><select id="staffRole"><option>Administratè</option><option>Responsab stok</option><option>Kesye</option></select></div>
+<div><label>Telefòn (opsyonèl)</label><input id="staffPhone"></div>
+</div><button class="primary" id="addStaff">Ajoute anplwaye</button></div>
+<div class="card"><h3>Lis anplwaye</h3><div class="tablewrap"><table><thead><tr><th>Non</th><th>Wòl</th><th>Telefòn</th><th>Aksyon</th></tr></thead><tbody id="staffRows"></tbody></table></div></div>
+</section>
 
-  <div class="card">
-    <h3>Rapò ak rezime</h3>
-    <p>Total pwodwi: <strong id="adminProducts">0</strong></p>
-    <p>Total lavant: <strong id="adminSales">0 HTG</strong></p>
-    <p>Dat jodi a: <strong id="adminDate"></strong></p>
-    <button class="action" onclick="updateAdmin()">Mete rapò a ajou</button>
-  </div>
+<section id="payroll">
+<div class="card"><h2>Rejis peman salè</h2><div class="notice">Sèvi ak sa kòm rejis peman sèlman. Verifye kontra travay ak lwa travay ann Ayiti anvan nenpòt dediksyon.</div><div class="row">
+<div><label>Anplwaye</label><select id="payEmployee"></select></div>
+<div><label>Peryòd</label><input id="payPeriod" placeholder="Egzanp: Novanm 2026"></div>
+<div><label>Montan peye (HTG)</label><input id="payAmount" type="number" min="0" step="0.01"></div>
+<div><label>Metòd</label><select id="payMethod"><option>Lajan kach</option><option>MonCash</option><option>NatCash</option><option>Bank</option></select></div>
+</div><button class="primary" id="addPayroll">Anrejistre peman</button></div>
+<div class="card"><h3>Istwa peman</h3><div class="tablewrap"><table><thead><tr><th>Dat</th><th>Anplwaye</th><th>Peryòd</th><th>Montan</th><th>Metòd</th></tr></thead><tbody id="payRows"></tbody></table></div></div>
+</section>
 
-  <div class="card">
-    <h3>Jesyon biznis</h3>
-    <button class="action" onclick="show('products')">Jesyon pwodwi ak stok</button>
-    <br><br>
-    <button class="action" onclick="show('sales')">Jesyon lavant</button>
-  </div>
-
-  <div class="card">
-    <h3>Jesyon anplwaye</h3>
-    <p>Espas pou kont anplwaye, responsablite ak pèmisyon.</p>
-    <p>Fonksyon sa a ap vini nan pwochen etap la.</p>
-  </div>
-
-  <div class="card">
-    <h3>Sèvis MonCash ak NatCash</h3>
-    <p>Jesyon tranzaksyon ak rapò sèvis yo ap entegre isit la.</p>
-  </div>
+<section id="reports">
+<div class="card"><h2>Rapò ak rezime</h2><div class="grid">
+<div><div class="muted">Lavant total</div><div class="stat" id="reportSales">0 HTG</div></div>
+<div><div class="muted">Komisyon sèvis</div><div class="stat" id="reportFees">0 HTG</div></div>
+<div><div class="muted">Peman salè</div><div class="stat" id="reportPayroll">0 HTG</div></div>
+</div><p class="muted">Rapò sa yo baze sèlman sou done ki anrejistre nan navigatè sa a.</p><button class="soft" id="exportData">Ekspòte kopi done (JSON)</button></div>
 </section>
 
 <section id="settings">
-  <div class="card">
-    <h2>⚙️ Paramètres</h2>
-    <label for="language">Choisir la langue</label>
-
-    <select id="language" onchange="changeLanguage()">
-      <option value="ht">Kreyòl</option>
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-    </select>
-
-    <p id="languageMessage">
-      Byenveni nan BENCIA MULTI SERVICES
-    </p>
-  </div>
+<div class="card"><h2>Paramèt biznis</h2>
+<label>Non biznis la</label><input id="businessNameInput" value="BENCIA MULTI SERVICES">
+<label>Non / tit sou resi</label><input id="receiptTitle" value="BENCIA MULTI SERVICES">
+<button class="primary" id="saveSettings">Anrejistre paramèt</button>
+<p class="muted">Chak enstalasyon dwe gen pwòp done biznis li. Pou jere plizyè biznis sou plizyè aparèy, n ap bezwen ajoute yon bazdone sou sèvè pita.</p>
+<button class="danger" id="backupReset">Efase done lokal yo</button>
+</div>
 </section>
+<footer>NexiaBiz • Vèsyon baz pou tès lokal</footer>
 </main>
-
 <script>
-function changeLanguage() {
-  const lang = document.getElementById("language").value;
-  const message = document.getElementById("languageMessage");
-
-  const translations = {
-    ht: "Byenveni nan BENCIA MULTI SERVICES",
-    fr: "Bienvenue dans BENCIA MULTI SERVICES",
-    en: "Welcome to BENCIA MULTI SERVICES"
-  };
-
-  message.textContent = translations[lang];
+"use strict";
+const KEY="nexiabiz_v1";
+const fresh=()=>({business:"BENCIA MULTI SERVICES",receipt:"BENCIA MULTI SERVICES",products:[],sales:[],services:[],staff:[],payroll:[],lang:"ht"});
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){db=fresh()}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function money(n){return (Number(n)||0).toLocaleString(undefined,{maximumFractionDigits:2})+" HTG"}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function totalSales(){return db.sales.reduce((a,x)=>a+Number(x.total||0),0)}
+function totalFees(){return db.services.reduce((a,x)=>a+Number(x.fee||0),0)}
+function totalPayroll(){return db.payroll.reduce((a,x)=>a+Number(x.amount||0),0)}
+function show(page){document.querySelectorAll("main section").forEach(s=>s.classList.toggle("active",s.id===page));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page))}
+document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button[data-page]");if(b)show(b.dataset.page)});
+document.getElementById("addProduct").onclick=()=>{let name=pName.value.trim(),price=Number(pPrice.value),qty=Number(pQty.value);if(!name||!Number.isFinite(price)||price<0||!Number.isInteger(qty)||qty<0){alert("Tanpri antre non, pri ak kantite ki valab.");return}db.products.push({id:id(),code:"NX-"+Date.now().toString().slice(-6),name,price,qty});pName.value=pPrice.value=pQty.value="";save()};
+document.getElementById("addSale").onclick=()=>{let p=db.products.find(x=>x.id===saleProduct.value),qty=Number(saleQty.value),paid=Number(salePaid.value||0);if(!p||!Number.isInteger(qty)||qty<1){alert("Chwazi yon pwodwi ak kantite ki valab.");return}if(qty>p.qty){alert("Stok pa ase pou kantite sa a.");return}let total=p.price*qty;if(paid<total){alert("Montan kliyan bay la pa sifi. Total la se "+money(total));return}p.qty-=qty;db.sales.push({id:id(),date:new Date().toLocaleString(),name:p.name,qty,total,paid,change:paid-total,cashier:saleCashier.value.trim(),customer:saleCustomer.value.trim()});saleMessage.textContent="Lavant anrejistre. Total: "+money(total)+" • Monnen: "+money(paid-total);saleQty.value="1";salePaid.value="";save()};
+document.getElementById("addService").onclick=()=>{let amount=Number(svcAmount.value),fee=Number(svcFee.value||0);if(!Number.isFinite(amount)||amount<=0||!Number.isFinite(fee)||fee<0){alert("Verifye montan ak frè a.");return}db.services.push({id:id(),date:new Date().toLocaleString(),provider:svcProvider.value,type:svcType.value,amount,fee,ref:svcRef.value.trim(),staff:svcStaff.value.trim()});svcAmount.value="";svcFee.value="0";svcRef.value="";save()};
+document.getElementById("addStaff").onclick=()=>{let name=staffName.value.trim();if(!name){alert("Antre non anplwaye a.");return}db.staff.push({id:id(),name,role:staffRole.value,phone:staffPhone.value.trim()});staffName.value=staffPhone.value="";save()};
+document.getElementById("addPayroll").onclick=()=>{let employee=db.staff.find(x=>x.id===payEmployee.value),amount=Number(payAmount.value),period=payPeriod.value.trim();if(!employee||!period||!Number.isFinite(amount)||amount<=0){alert("Chwazi anplwaye a, peryòd la, epi antre yon montan valab.");return}db.payroll.push({id:id(),date:new Date().toLocaleDateString(),employee:employee.name,period,amount,method:payMethod.value});payAmount.value="";save()};
+function del(kind,key){if(!confirm("Ou sèten ou vle retire eleman sa a?"))return;db[kind]=db[kind].filter(x=>x.id!==key);save()}
+function render(){
+ businessHeader.textContent=db.business+" • NexiaBiz";businessNameHome.textContent=db.business;businessNameInput.value=db.business;receiptTitle.value=db.receipt;
+ statProducts.textContent=db.products.length;statSales.textContent=money(totalSales());statServices.textContent=db.services.length;statLow.textContent=db.products.filter(p=>p.qty<=5).length;
+ productRows.innerHTML=db.products.map(p=>`<tr><td>${esc(p.code)}</td><td>${esc(p.name)}</td><td>${money(p.price)}</td><td>${p.qty}</td><td><button class="danger" onclick="del('products','${p.id}')">Retire</button></td></tr>`).join("")||'<tr><td colspan="5" class="empty">Pa gen pwodwi ankò.</td></tr>';
+ saleProduct.innerHTML=db.products.map(p=>`<option value="${p.id}">${esc(p.name)} — ${money(p.price)} (stok ${p.qty})</option>`).join("")||'<option value="">Ajoute pwodwi anvan</option>';
+ saleRows.innerHTML=db.sales.slice().reverse().map(s=>`<tr><td>${esc(s.date)}</td><td>${esc(s.name)}</td><td>${s.qty}</td><td>${money(s.total)}</td><td>${money(s.paid)}</td><td>${money(s.change)}</td><td>${esc(s.cashier)}</td></tr>`).join("")||'<tr><td colspan="7" class="empty">Pa gen lavant ankò.</td></tr>';
+ serviceRows.innerHTML=db.services.slice().reverse().map(s=>`<tr><td>${esc(s.date)}</td><td>${esc(s.provider)}</td><td>${esc(s.type)}</td><td>${money(s.amount)}</td><td>${money(s.fee)}</td><td>${esc(s.staff)}</td></tr>`).join("")||'<tr><td colspan="6" class="empty">Pa gen tranzaksyon ankò.</td></tr>';
+ staffRows.innerHTML=db.staff.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.role)}</td><td>${esc(s.phone)}</td><td><button class="danger" onclick="del('staff','${s.id}')">Retire</button></td></tr>`).join("")||'<tr><td colspan="4" class="empty">Pa gen anplwaye ankò.</td></tr>';
+ payEmployee.innerHTML=db.staff.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("")||'<option value="">Ajoute anplwaye anvan</option>';
+ payRows.innerHTML=db.payroll.slice().reverse().map(p=>`<tr><td>${esc(p.date)}</td><td>${esc(p.employee)}</td><td>${esc(p.period)}</td><td>${money(p.amount)}</td><td>${esc(p.method)}</td></tr>`).join("")||'<tr><td colspan="5" class="empty">Pa gen peman ankò.</td></tr>';
+ reportSales.textContent=money(totalSales());reportFees.textContent=money(totalFees());reportPayroll.textContent=money(totalPayroll());
+ language.value=db.lang||"ht";
 }
-let products = JSON.parse(localStorage.getItem("products") || "[]");
-let sales = JSON.parse(localStorage.getItem("sales") || "[]");
-
-
-function show(page) {
-    document.querySelectorAll("main section").forEach(s => {
-        s.hidden = true;
-    });
-
-    const section = document.getElementById(page);
-
-    if (!section) {
-        alert("Seksyon sa a pa disponib.");
-        return;
-    }
-
-    section.hidden = false;
-
-    if (page === "admin") {
-        updateAdmin();
-    }
-}
-
-
-function addProduct() {
-    let name = document.getElementById("productName").value;
-    let price = Number(document.getElementById("productPrice").value);
-    let qty = Number(document.getElementById("productQty").value);
-
-    if (!name || price <= 0 || qty <= 0) {
-        alert("Tanpri ranpli tout enfòmasyon yo.");
-        return;
-    }
-
-    products.push({name, price, qty});
-    localStorage.setItem("products", JSON.stringify(products));
-
-    document.getElementById("productName").value = "";
-    document.getElementById("productPrice").value = "";
-    document.getElementById("productQty").value = "";
-
-    update();
-}
-
-function addSale() {
-    let name = document.getElementById("saleName").value;
-    let amount = Number(document.getElementById("saleAmount").value);
-
-    if (!name || amount <= 0) {
-        alert("Tanpri ranpli enfòmasyon lavant lan.");
-        return;
-    }
-
-    sales.push({name, amount, date: new Date().toLocaleString()});
-    localStorage.setItem("sales", JSON.stringify(sales));
-
-    document.getElementById("saleName").value = "";
-    document.getElementById("saleAmount").value = "";
-
-    
-    update();
-}
-
-// FONKSYON RAPÒ ADMINISTRATÈ
-function updateAdmin() {
-    document.getElementById("adminProducts").textContent =
-        products.length;
-
-    let total = sales.reduce((sum, s) => sum + Number(s.amount), 0);
-
-    document.getElementById("adminSales").textContent =
-        total.toLocaleString() + " HTG";
-
-    document.getElementById("adminDate").textContent =
-        new Date().toLocaleDateString();
-}
-
-function update() {
-    document.getElementById("totalProducts").textContent = products.length;
-
-    let total = sales.reduce((sum, s) => sum + s.amount, 0);
-
-    document.getElementById("totalSales").textContent =
-        total.toLocaleString() + " HTG";
-
-    document.getElementById("productList").innerHTML =
-        products.map(p => `<p>${p.name} — ${p.price} HTG — Kantite: ${p.qty}</p>`).join("");
-
-    document.getElementById("saleList").innerHTML =
-        sales.map(s => `<p>${s.name} — ${s.amount} HTG — ${s.date}</p>`).join("");
-
-    updateAdmin();
-}
-
-
-    let total = sales.reduce((sum, s) => sum + s.amount, 0);
-
-    document.getElementById("totalSales").textContent =
-        total.toLocaleString() + " HTG";
-
-    document.getElementById("productList").innerHTML =
-        products.map(p => `<p>${p.name} — ${p.price} HTG — Kantite: ${p.qty}</p>`).join("");
-
-    document.getElementById("saleList").innerHTML =
-        sales.map(s => `<p>${s.name} — ${s.amount} HTG — ${s.date}</p>`).join("");
-
-updateAdmin();}
-function updateAdmin() {
-   updateAdmin(); document.getElementById("adminProducts").textContent =
-        products.length;
-
-    let total = sales.reduce((sum, s) => sum + Number(s.amount), 0);
-
-    document.getElementById("adminSales").textContent =
-        total.toLocaleString() + " HTG";
-
-    document.getElementById("adminDate").textContent =
-        new Date().toLocaleDateString();
-}
-update();
+saveSettings.onclick=()=>{db.business=businessNameInput.value.trim()||"Biznis mwen";db.receipt=receiptTitle.value.trim()||db.business;save();alert("Paramèt yo anrejistre.")};
+language.onchange=()=>{db.lang=language.value;localStorage.setItem(KEY,JSON.stringify(db));alert("Lang lan chanje nan paramèt. Tradiksyon konplè ap ajoute nan pwochen etap la.")};
+exportData.onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="nexiabiz-backup.json";a.click();URL.revokeObjectURL(url)};
+backupReset.onclick=()=>{if(confirm("ATANSYON: sa ap efase tout done NexiaBiz ki sere nan navigatè sa a. Fè ekspòtasyon anvan. Kontinye?")){localStorage.removeItem(KEY);db=fresh();save()}};
+render();
 </script>
-
 </body>
 </html>
